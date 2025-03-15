@@ -61,14 +61,10 @@ export class FieldGroupService {
     
     // Automatically select the new group
     this.selectGroup(newGroup);
-    
-    console.log('Group created:', newGroup);
-    console.log('All groups:', groups);
   }
 
   updateFieldGroup(group: FieldGroup): void {
     if (!group || !group.id) {
-      console.error('Cannot update group: Invalid group or missing ID', group);
       return;
     }
     
@@ -87,9 +83,6 @@ export class FieldGroupService {
     }
     
     this.saveToStorage();
-    
-    console.log('Group updated:', updatedGroup);
-    console.log('All groups after update:', groups);
   }
 
   deleteFieldGroup(id: string): void {
@@ -105,7 +98,6 @@ export class FieldGroupService {
     // Make a defensive copy to avoid reference issues
     const groupCopy = group ? JSON.parse(JSON.stringify(group)) : null;
     this.selectedGroupSubject.next(groupCopy);
-    console.log('Selected group:', groupCopy);
   }
 
   exportConfiguration(): string {
