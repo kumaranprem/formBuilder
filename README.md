@@ -29,7 +29,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 Clone this repository to your local machine:
 
 -----bash-----
-git clone https://github.com/kumaranprem/formBuilder
+git clone https://github.com/kumaranprem/formBuilder.git
 
 cd form-builder-app
 
