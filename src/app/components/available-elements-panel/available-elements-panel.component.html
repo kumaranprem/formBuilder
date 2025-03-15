@@ -1,0 +1,53 @@
+<div class="pane right-pane">
+  <div class="pane-header">
+    <h2>Available Elements</h2>
+  </div>
+  
+  <!-- Search bar -->
+  <div class="search-container">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="Search elements..."
+      class="search-input"
+      (input)="filterElements()"
+    />
+  </div>
+  
+  <div
+    cdkDropList
+    #rightList="cdkDropList"
+    [cdkDropListData]="filteredElements"
+    [cdkDropListConnectedTo]="[targetList]"
+    class="form-elements"
+    [cdkDropListSortingDisabled]="true"
+  >
+    <!-- Categorized elements -->
+    <ng-container *ngFor="let category of categories">
+      <div class="element-category" *ngIf="hasElementsInCategory(category)">
+        <div class="category-header">{{ category }}</div>
+        
+        <div
+          *ngFor="let element of getElementsInCategory(category)"
+          cdkDrag
+          [cdkDragData]="element"
+          class="form-element available-element"
+          cdkDragBoundary=".app-container"
+          [cdkDragDisabled]="false"
+        >
+          <div class="element-icon">{{ getElementIcon(element.type) }}</div>
+          <div class="element-content">
+            <h4>{{ element.type }}</h4>
+            <small>{{ getElementDescription(element.type) }}</small>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    
+    <!-- Show when no elements match search -->
+    <div class="empty-message" *ngIf="filteredElements.length === 0">
+      <p>No elements match your search</p>
+      <p class="empty-hint">Try a different search term</p>
+    </div>
+  </div>
+</div> 

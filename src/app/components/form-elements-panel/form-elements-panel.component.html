@@ -1,0 +1,58 @@
+<div class="pane middle-pane">
+  <div class="pane-header">
+    <h2>{{ groupName || 'Select a Field Group' }}</h2>
+  </div>
+  <div
+    cdkDropList
+    #middleList="cdkDropList"
+    [cdkDropListData]="elements"
+    (cdkDropListDropped)="onDrop($event)"
+    class="form-elements"
+  >
+    <div
+      *ngFor="let element of elements"
+      cdkDrag
+      [cdkDragData]="element"
+      class="form-element"
+      (click)="onSelectElement(element)"
+    >
+      <div class="drag-handle" cdkDragHandle>⋮</div>
+      <div class="element-content">
+        <h4>{{ element.name }}</h4>
+        <div class="element-details">
+          <span class="element-type">{{ element.type }}</span>
+          <span *ngIf="element.required" class="required-badge">Required</span>
+        </div>
+      </div>
+      <div class="element-actions">
+        <button 
+          type="button" 
+          class="action-btn copy-btn" 
+          (click)="copyElement(element, $event)"
+          title="Copy element"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+        </button>
+        <button 
+          type="button" 
+          class="action-btn delete-btn" 
+          (click)="deleteElement(element, $event)"
+          title="Delete element"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h18"></path>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+            <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div *ngIf="elements.length === 0" class="empty-message">
+      <p>No form elements yet</p>
+      <p class="empty-hint">Drag elements here from the right panel</p>
+    </div>
+  </div>
+</div> 
